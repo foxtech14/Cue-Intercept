@@ -7,6 +7,7 @@
 
 local useOSC = true -- Do you want to send the additional OSC string?
 local exeSeq = nil -- Sequence for Main list Executes
+local oosEnable = true -- Enable the OOS Feature
 local oosSeq = { -- Array for OOS Sync Sequences
     11,
     12,
@@ -28,7 +29,7 @@ local E = Echo -- Echo to System Monitor
 -- ****************************************************************
 
 local function sendOSC(num, name)
-    C(string.format("SendOSC 1 '/gma3/out/cue,%s,%s'",num,name))
+    C(string.format("SendOSC 1 '/out/cue,fs,%s,%s'",num,name))
 end
 
 
@@ -79,6 +80,10 @@ local function main()
         if (exact) then
             C(string.format("Goto Sequence %s Cue %s", exeSeq, oscNum))
         end
+    end
+
+    if (not oosEnable) then
+        return
     end
 
     for i,v in ipairs(oosSeq) do
