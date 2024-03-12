@@ -92,8 +92,10 @@ local function main()
         local current = seq:CurrentChild()
         found, exact = findQ(seq, rawNum, 1, seq.count, 1)
 
-        if (found ~= current.no) then
-            C(string.format("Goto Sequence %s Cue %s", v, found/1000))
+        if (current ~= nil) then
+            if (found ~= current.no) then
+                C(string.format("Goto Sequence %s Cue %s", v, found/1000))
+            end
         end
     end
 end
